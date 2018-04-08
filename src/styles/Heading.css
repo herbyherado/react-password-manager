@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css?family=Damion');
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 5px;
+  background-color: rgba(7, 21, 143, 0.809);
+  border-bottom: 10px solid rgb(82, 55, 177);
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.search-bar {
+  margin: 0 auto;
+}
+
+.logo-title {
+  position: relative;
+  margin-top: -1.5em;
+  font-family: 'Damion', Helvetica, Arial, Helvetica, sans-serif;
+  font-size: 50px;
+  top: 1.5em;
+  z-index: 2;
+}
+
+@media all and (max-width: 900px) {
+  .header {
+    grid-template-columns: auto;
+    grid-row-gap: 20px;
+  }
+  .logo-title {
+    margin-top: -1em;
+  }
+}
