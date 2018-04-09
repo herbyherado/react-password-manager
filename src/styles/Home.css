@@ -1,0 +1,118 @@
+.register-form {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background: #0ea8ec;
+  width: 500px;
+  padding: 2rem 2rem 2rem 2rem;
+  top: 30vh;
+  left: 50%;
+  position: fixed;
+  transform: translate(-50%,  -50%);
+  box-sizing: border-box;
+  z-index: 7;
+  box-shadow: 10px 10px whitesmoke;
+}
+
+.sign-form {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background: #051780;
+  width: 500px;
+  padding: 2rem 2rem 2rem 2rem;
+  top: 30vh;
+  left: 50%;
+  position: fixed;
+  transform: translate(-50%,  -50%);
+  box-sizing: border-box;
+  z-index: 7;
+  box-shadow: 10px 10px whitesmoke;
+}
+
+.register-title {
+  font-family: 'Damion', sans-serif;
+  font-size: 30px;
+  margin-bottom: 1em;
+}
+
+.register-field {
+  padding: 1em 0;
+}
+
+/*  */
+
+input {
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+}
+#form-update label {
+  opacity: 0;
+}
+.register-field input {
+  padding: 10px 60px;
+  border: 4px solid white;
+  margin: 0 1.5rem;
+  background-color: transparent !important;
+  -webkit-appearance: none;
+  color: white;
+}
+.register-field input:-webkit-autofill {
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0px 1000px #0ea8ec inset;
+  -webkit-text-fill-color: white !important;
+}
+.register-field input::-webkit-input-placeholder {
+  color: white;
+}
+.register-field input:-ms-input-placeholder {
+  color: white;
+}
+.register-field input::-ms-input-placeholder {
+  color: white;
+}
+.register-field input::placeholder {
+  color: white;
+}
+.register-field input:focus {
+  color: #0e39fe;
+  font-weight: bold;
+  outline: 0;
+  border: 6px solid #0e39fe;
+}
+.register-field input::-webkit-input-placeholder {
+  opacity: 1;
+  -webkit-transition: inherit;
+  transition: inherit;
+}
+.register-field input:focus::-webkit-input-placeholder {
+  opacity: 0;
+}
+.register-field button {
+  border: none;
+  padding: 0.85rem 1rem;
+  margin-top: 2rem;
+  background-color: #0e39fe;
+  color: white;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  width: 65%;
+  position: absolute;
+  bottom: -20px;
+  right: 18%;
+  letter-spacing: 0.15em;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.register-field button:hover {
+  border: 6px solid #090c9b;
+}
+
+#message {
+  font-family: 'Damion', Helvetica, Arial, Helvetica, sans-serif;
+  font-size: 30px;
+}

@@ -35,9 +35,6 @@ class List extends Component {
   showUpdate (data) {
     document.getElementsByClassName('overlay' + data.id)[0].style.display = 'block'
     document.getElementsByClassName('form-update' + data.id)[0].style.display = 'block'
-    // document.getElementById('url-update' + data.id).value = data.url
-    // document.getElementById('username-update' + data.id).value = data.username
-    // document.getElementById('password-update' + data.id).value = data.password
   }
   closeUpdate (id) {
     document.getElementsByClassName('overlay' + id)[0].style.display = 'none'
@@ -74,7 +71,7 @@ class List extends Component {
                       <div className="title">{ this.timestamp(each.updatedAt) }</div> :
                       <div className="title"></div>
                     }
-                    <div className="icon" onClick={ () => this.toggle(each.id, each.password) }> <i className="fas fa-eye"></i> </div>         
+                    <div className="icon" onClick={ () => this.toggle(each.id, each.password) }> <i className="fas fa-eye"></i> </div>       
                     <div className="icon" onClick={ () => this.showUpdate(each) } title={each.id}> <i className="far fa-edit"></i> </div>    
                     <div className="icon" onClick={ () => this.remove(each.id) }> <i className="fas fa-minus-circle"></i> </div>         
                   </div>
@@ -100,7 +97,9 @@ class List extends Component {
     } 
   }
   componentWillMount () {
-    this.props.getPassword()
+    console.log(this.props.userId)
+    console.log(this.props.auth.userId)
+    this.props.getPassword(this.props.auth.userId)
   }
 };
 
@@ -108,13 +107,14 @@ class List extends Component {
 function mapStateToProps (state) {
   return {
     password: state.password,
-    query: state.query
+    query: state.query,
+    auth: state.auth
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    getPassword: () => dispatch(loadPassword()),
+    getPassword: (payload) => dispatch(loadPassword(payload)),
     addData: (payload) => dispatch(addPassword(payload)),
     deleteData: (payload) => dispatch(deletePassword(payload))
   }

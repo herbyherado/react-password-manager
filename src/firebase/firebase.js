@@ -7,8 +7,7 @@ const config = {
   projectId: "herbyherado-198014",
   storageBucket: "herbyherado-198014.appspot.com",
   messagingSenderId: "274437662526"
-};
-firebase.initializeApp(config);
-const database = firebase.database()
-
-export default database
+}
+firebase.initializeApp(config)
+export const database = firebase.database()
+export const auth = firebase.auth()

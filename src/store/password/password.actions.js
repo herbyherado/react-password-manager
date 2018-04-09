@@ -7,12 +7,12 @@ import {
   UPDATE_PASSWORD
 } from './password.actionTypes'
 import firebase from 'firebase'
-import database from '../../firebase/firebase'
+import { database } from '../../firebase/firebase'
 
 export const loadPassword = (payload) => {
   return dispatch => {
     dispatch(loadPasswordLoading())
-    return database.ref('/password').on('value', snap => {
+    return database.ref(`/password/${payload}`).on('value', snap => {
       const pass = snap.val()
       console.log(pass)
       let arr = []
@@ -30,15 +30,16 @@ export const loadPassword = (payload) => {
   }
 }
 
-export const addPassword = (payload) => {
+export const addPassword = (payload, id) => {
   console.log(payload)
   payload = {
     ...payload,
     createdAt: firebase.database.ServerValue.TIMESTAMP,
   }
   console.log(payload)
+  console.log(id)
   return dispatch => {
-    database.ref('/').child('/password/').push(payload)
+    database.ref(`/password/${id}`).push(payload)
     .then(() => {
       dispatch(addPasswordSuccess(payload))
     })
@@ -48,8 +49,7 @@ export const addPassword = (payload) => {
   }
 }
 
-export const updatePassword = (payload) => {
-  console.log(payload.id)
+export const updatePassword = (payload, userId) => {
   let id = payload.id
   payload = {
     url: payload.url,
@@ -58,7 +58,7 @@ export const updatePassword = (payload) => {
     updatedAt: firebase.database.ServerValue.TIMESTAMP
   }
   return dispatch => {
-    database.ref('/').child(`/password/${id}`).update(payload)
+    database.ref(`/password/${userId}/${id}`).update(payload)
     .then(() => {
       dispatch(updatePasswordSuccess(payload))
     })

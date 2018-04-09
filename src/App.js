@@ -1,24 +1,29 @@
-import React, { Component } from 'react';
-import { Provider } from 'react-redux'
-import store from './store/store'
-import './App.css';
-import Form from '../src/components/Form'
-import Heading from '../src/components/Heading'
-import List from '../src/components/List'
-
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { BrowserRouter, Route, Redirect } from 'react-router-dom'
+import './App.css'
+import Dashboard from '../src/components/Dashboard'
+import Home from '../src/components/Home'
+import Register from '../src/components/Register'
 class App extends Component {
 
   render() {
     return (
-      <Provider store = { store }>
+      <BrowserRouter>
         <div className="App">
-          <Heading/>
-          <Form/>
-          <List/>
+          <Route exact path='/' render={ (props) => (this.props.auth.isLogin) ? (<Redirect to='/dashboard' />) : (<Home />) } />
+          <Route path='/register' render={ (props) => (this.props.auth.isLogin) ? (<Redirect to='/dashboard' />) : (<Register />)  } />
+          <Route path='/dashboard' render={ (props) => (this.props.auth.isLogin) ? (<Dashboard />) : (<Redirect to='/' />)  } />
         </div>
-      </Provider>
+      </BrowserRouter>
     );
   }
 }
 
-export default App;
+function mapStateToProps (state) {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps, null)(App)

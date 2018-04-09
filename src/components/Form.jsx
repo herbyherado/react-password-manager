@@ -24,15 +24,23 @@ class Form extends Component {
     }
   }
   validateAll = () => {
+    console.log(this.state.username.length, 
+      this.state.urlFormat, 
+      this.state.lowerCase, 
+      this.state.upperCase,
+      this.state.hasNumber,
+      this.state.specialCharacter,
+      this.state.minLength
+     )
     return (
-      ( this.state.username && 
+        (this.state.username.length) && 
         this.state.urlFormat && 
         this.state.lowerCase && 
         this.state.upperCase &&
         this.state.hasNumber &&
         this.state.specialCharacter &&
         this.state.minLength
-      ) ?
+       ?
       this.setState({ validateAll: true }) 
       :
       this.setState({ validateAll: false })
@@ -71,9 +79,9 @@ class Form extends Component {
       :
       this.setState({ upperCase: false })
   }
-  validateHasSpecialCharacter = () => {
+  validateHasSpecialCharacter = (cb) => {
     return (/\W/g.test(this.state.password)) ?
-      this.setState({ specialCharacter: true })
+      this.setState({ specialCharacter: true }, () => cb())
       :
       this.setState({ specialCharacter: false })
   }
@@ -81,13 +89,14 @@ class Form extends Component {
       this.setState({
         [e.target.name]: e.target.value
       }, () => {
+        this.validateHasSpecialCharacter(() => {
+          this.validateAll()
+        })
         this.validateLength()
         this.validateHasNumber()
         this.validateHasLowerCase()
         this.validateHasUpperCase()
-        this.validateHasSpecialCharacter()
         this.validateUrl()
-        this.validateAll()
       })
   }
   showValidate = () => {
@@ -132,16 +141,18 @@ class Form extends Component {
       username: this.state.username,
       password: this.state.password
     }
-    if (!this.state.urlFormat) {
+    if (this.state.validateAll) {
+      this.props.addData(obj, this.props.auth.userId)
+      this.resetState()
+      swal("Hooray!", "Data saved!", "success")
+    } else if (!this.state.urlFormat) {
       swal(":(", "Please check your url input field", "warning")
     } else if (!this.state.username) {
       swal(":(", "Please check your username input field", "warning")
     } else if (!this.state.password) {
       swal(":(", "Password field is required", "warning")
     } else {
-      this.props.addData(obj)
-      this.resetState()
-      swal("Hooray!", "Data saved!", "success")
+      swal('Uh-oh', 'Password validation failed', 'error')
     }
   }
   render() {
@@ -205,10 +216,16 @@ class Form extends Component {
   }
 };
 
-function mapDispatchToProps (dispatch) {
+function mapStateToProps (state) {
   return {
-    addData: (payload) => dispatch(addPassword(payload))
+    auth: state.auth
   }
 }
 
-export default connect(null, mapDispatchToProps)(Form)
+function mapDispatchToProps (dispatch) {
+  return {
+    addData: (payload, id) => dispatch(addPassword(payload, id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form)

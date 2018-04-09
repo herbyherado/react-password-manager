@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { updatePassword } from '../store/password/password.actions'
 import '../styles/UpdateModal.css'
@@ -26,7 +26,8 @@ class UpdateModal extends Component {
       username: this.state.usernameUpdate,
       password: this.state.passwordUpdate,
     }
-    this.props.updateData(obj)
+    this.props.updateData(obj, this.props.auth.userId)
+    this.props.closeUpdate(obj.id)
   }
 
   render() {
@@ -66,10 +67,16 @@ class UpdateModal extends Component {
   }
  };
 
-function mapDispatchToProps (dispatch) {
+function mapStateToProps (state) {
   return {
-    updateData: (payload) => dispatch(updatePassword(payload))
+    auth: state.auth
   }
 }
 
-export default connect(null, mapDispatchToProps)(UpdateModal)
+function mapDispatchToProps (dispatch) {
+  return {
+    updateData: (payload, userId) => dispatch(updatePassword(payload, userId))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateModal)
