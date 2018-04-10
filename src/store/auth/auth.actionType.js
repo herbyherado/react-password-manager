@@ -1,3 +1,5 @@
 export const REGISTER = 'REGISTER'
 export const SIGN_IN = 'SIGN_IN'
 export const SIGN_OUT = 'SIGN_OUT'
+export const CHECK_PASSWORD_SUCCESS = 'CHECK_PASSWORD_SUCCESS'
+export const CHECK_PASSWORD_ERROR = 'CHECK_PASSWORD_ERROR'

@@ -1,4 +1,4 @@
-import { REGISTER, SIGN_IN, SIGN_OUT } from './auth.actionType'
+import { REGISTER, SIGN_IN, SIGN_OUT, CHECK_PASSWORD_SUCCESS, CHECK_PASSWORD_ERROR } from './auth.actionType'
 
 const initialState = {
   email: '',
@@ -25,6 +25,14 @@ const reducers = (state = initialState, action) => {
         email: '',
         userId: '',
         isLogin: false
+      }
+    case CHECK_PASSWORD_SUCCESS:
+      return {
+        ...state
+      }
+    case CHECK_PASSWORD_ERROR:
+      return {
+        ...state
       }
     default:
       return state

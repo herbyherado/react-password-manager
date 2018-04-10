@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { loadPassword, addPassword, deletePassword } from '../store/password/password.actions'
+import { promptPassword } from '../store/auth/auth.action'
 import { connect } from 'react-redux'
 import ReactDOM from 'react-dom'
 import '../styles/List.css'
 import ListTitle from './ListTitle'
 import UpdateModal from '../components/UpdateModal'
+import swal from 'sweetalert2'
 import nyan from '../assets/nyan.gif'
 
 class List extends Component {
@@ -25,9 +27,9 @@ class List extends Component {
   }
   toggle (id, pass) {
     let bullet = String.fromCharCode(0x2022)
-    let text = document.getElementById('pass'+id)
-    if (text.innerText.indexOf(bullet) !== -1) {
-      ReactDOM.render(pass, document.getElementById('pass'+id))
+    let element = document.getElementById('pass'+id)
+    if (element.innerText.indexOf(bullet) !== -1) {
+      this.props.checkPassword(pass, this.props.auth.email, element)
     } else {
       ReactDOM.render(this.hash(pass), document.getElementById('pass'+id))
     }
@@ -116,7 +118,8 @@ function mapDispatchToProps (dispatch) {
   return {
     getPassword: (payload) => dispatch(loadPassword(payload)),
     addData: (payload) => dispatch(addPassword(payload)),
-    deleteData: (payload) => dispatch(deletePassword(payload))
+    deleteData: (payload) => dispatch(deletePassword(payload)),
+    checkPassword: (password, email, element) => dispatch(promptPassword(password, email, element))
   }
 }
 
